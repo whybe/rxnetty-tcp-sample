@@ -1,6 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'application'
+//apply plugin: 'application'
 apply plugin: 'me.tatarka.retrolambda'
 
 sourceCompatibility = 1.8
@@ -27,13 +27,29 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.+'
 }
 
-//mainClassName = "com.pluralsight.rxjava.HighOrderFunctionIllustration"
+task runSimpleTcpServer (dependsOn: [classes], type: JavaExec) {
+    group = "Examples"
+    description = "Run Simple Tcp Server"
+
+    main = "io.reactivex.netty.samples.SimpleTcpServer"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task runSimpleTcpClient (dependsOn: [classes], type: JavaExec) {
+    group = "Examples"
+    description = "Run Simple Tcp Client"
+
+    main = "io.reactivex.netty.samples.SimpleTcpClient"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+//mainClassName = "io.reactivex.netty.samples.SimpleTcpServer"
 
 jar {
 	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    manifest {
+//    manifest {
 //        attributes 'Main-Class': mainClassName
-    }
+//    }
 }
 
 buildscript {

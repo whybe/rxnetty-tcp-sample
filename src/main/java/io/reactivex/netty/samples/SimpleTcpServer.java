@@ -1,4 +1,4 @@
-package io.reactive.netty.samples;
+package io.reactivex.netty.samples;
 
 import io.reactivex.netty.RxNetty;
 import io.reactivex.netty.channel.ConnectionHandler;

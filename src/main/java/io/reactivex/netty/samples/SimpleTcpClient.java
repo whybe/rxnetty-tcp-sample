@@ -1,6 +1,6 @@
-package io.reactive.netty.samples;
+package io.reactivex.netty.samples;
 
-import static io.reactive.netty.samples.SimpleTcpServer.DEFAULT_PORT;
+import static io.reactivex.netty.samples.SimpleTcpServer.DEFAULT_PORT;
 import io.reactivex.netty.RxNetty;
 import io.reactivex.netty.channel.ObservableConnection;
 import io.reactivex.netty.client.RxClient;
