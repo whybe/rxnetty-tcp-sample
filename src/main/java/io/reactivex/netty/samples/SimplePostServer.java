@@ -21,6 +21,7 @@ import io.netty.buffer.ByteBufAllocator;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.buffer.Unpooled;
+import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.util.CharsetUtil;
@@ -77,17 +78,17 @@ public class SimplePostServer {
                             logger.info("reduce");
                             logger.info("buf1 {} refCnt() : {}", buf1.toString(), buf1.refCnt());
                             logger.info("buf2 {} refCnt() : {}", buf2.toString(), buf2.refCnt());
-                            
+
                             ByteBuf buf3 = Unpooled.copiedBuffer(buf1, buf2);
-                            
+
                             buf1.release();
                             logger.info("buf1 release");
                             logger.info("buf1 {} refCnt() : {}", buf1.toString(), buf1.refCnt());
-                            
+
                             buf2.release();
                             logger.info("buf2 release");
                             logger.info("buf2 {} refCnt() : {}", buf2.toString(), buf2.refCnt());
-                            
+
                             logger.info("buf3 {} refCnt() : {}", buf3.toString(), buf3.refCnt());
 
                             return buf3;
@@ -103,13 +104,15 @@ public class SimplePostServer {
                             for (String key : map.keySet()) {
                                 System.out.println(key + " : " + map.get(key).get(0));
                             }
+//                            response.setStatus(HttpResponseStatus.INTERNAL_SERVER_ERROR);
+                            response.setStatus(HttpResponseStatus.OK);
                             response.writeStringAndFlush("1");
 
                             logger.info("buf4 {} refCnt() : {}", buf4.toString(), buf4.refCnt());
                             buf4.release();
                             logger.info("buf4 release");
                             logger.info("buf4 {} refCnt() : {}", buf4.toString(), buf4.refCnt());
-                            
+
                             return null;
                         }
                     })
@@ -145,7 +148,7 @@ public class SimplePostServer {
                     .ignoreElements();
             }
         }).pipelineConfigurator(new HttpServerPipelineConfigurator<ByteBuf, ByteBuf>())
-//            .enableWireLogging(LogLevel.ERROR)
+            // .enableWireLogging(LogLevel.ERROR)
             .build();
         logger.info("Simple POST server started...");
         return server;
