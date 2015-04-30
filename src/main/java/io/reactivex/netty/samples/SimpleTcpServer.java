@@ -117,7 +117,7 @@ public class SimpleTcpServer {
 
 					@Override public void onCompleted() {
 						logger.info("received onComplete");
-						
+						close();
 					}
 				});
 

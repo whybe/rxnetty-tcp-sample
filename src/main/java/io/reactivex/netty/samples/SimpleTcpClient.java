@@ -114,7 +114,8 @@ public class SimpleTcpClient {
 					}
 
 					@Override public void onCompleted() {
-						System.out.println("received complete");
+					    logger.info("received complete");
+					    close();
 					}
 				});
 
